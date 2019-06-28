@@ -26,10 +26,7 @@ public class p15955 {
 		arr[parent1] += arr[parent2];
 		arr[parent2] = parent1;
 	}
-	public static boolean isSource(int[] arr, int v) {
-		return arr[v] < 0;
-	}
-	public static int size(int[] arr, int v) {
+	private static int size(int[] arr, int v) {
 		return -arr[find(arr, v)];
 	}
 	public static void main(String[] args) {
