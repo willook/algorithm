@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class p15955 {
+	//for using those methods you must make -1 array (size : maxium number of component) 
 	public static int find(int[] arr, int ch) {
 		if (arr[ch] < 0) return ch;
 		int pa = arr[ch];
