@@ -29,6 +29,9 @@ public class p2042_segment {
 			return sum(2*node, i, (i+j)/2, l, r)
 				 + sum(2*node+1, (i+j)/2+1, j, l, r);
 		}
+		long sum(int l, int r) {
+			return sum(1,0,arr.length-1,l,r);
+		}
 		void update(int i, long value) {
 			long diff = value - arr[i];
 			arr[i] = value;
