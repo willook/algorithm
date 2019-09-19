@@ -6,12 +6,9 @@ import java.util.Scanner;
 public class p15955 {
 	//for using those methods you must make -1 array (size : maxium number of component) 
 	public static int find(int[] arr, int ch) {
-		if (arr[ch] < 0) return ch;
 		int pa = arr[ch];
-		while(arr[pa] >= 0)
-			pa = arr[pa];
-		arr[ch] = pa;
-		return pa;
+		if (pa < 0) return ch;
+		return arr[ch] = find(arr,pa);
 	}
 	public static void union(int[] arr, int v1, int v2) {
 		int parent1 = find(arr, v1);
@@ -19,16 +16,14 @@ public class p15955 {
 		
 		if(parent1 == parent2) return;
 		
-		if(size(arr, parent1) < size(arr, parent2)) {
-			parent1 ^= parent2;
-			parent2 ^= parent1;
-			parent1 ^= parent2;
+		if(-arr[parent1] < -arr[parent2]) {
+			arr[parent2] += arr[parent1];
+			arr[parent1] = parent2;
 		}
-		arr[parent1] += arr[parent2];
-		arr[parent2] = parent1;
-	}
-	private static int size(int[] arr, int v) {
-		return -arr[find(arr, v)];
+		else {
+			arr[parent1] += arr[parent2];
+			arr[parent2] = parent1;
+		}
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
