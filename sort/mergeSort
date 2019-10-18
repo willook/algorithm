@@ -1,0 +1,56 @@
+package week02;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+
+public class MergeSort {
+	static StringBuilder sb = new StringBuilder();
+	static int cnt=0;
+	static void merge(int[] arr, int l, int r) {
+		cnt += 1;
+		int m = (l+r)/2;
+		
+		if(l!=m) merge(arr,l,m);
+		if(m+1!=r) merge(arr,m+1,r);
+		int i = l;
+		int j = m+1;
+		int[] tarr = new int[r-l+1];
+		for(int k=0;k<tarr.length;k++) {
+			if(i!=m+1 &&(j == r+1 || arr[i] < arr[j])) {
+				tarr[k] = arr[i];
+				i+=1;
+			}else {
+				tarr[k] = arr[j];
+				j+=1;
+			}
+		}
+		i = l;
+		for(int k=0;k<tarr.length;k++,i++)
+			arr[i] = tarr[k];
+	}
+	
+	static void mergeSort(int n, int[] arr) {
+		merge(arr,0,n-1);
+		sb.append(arr[0]);
+		for(int i=1;i<n;i++)
+			sb.append(',').append(arr[i]);
+		sb.append(',').append(cnt);
+	}
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new FileReader("data02.txt"));
+		BufferedWriter bw = new BufferedWriter(new FileWriter("hw01_06_201502096_merge.txt"));
+		String[] inputs = br.readLine().split(",");
+		int n = inputs.length;
+		int[] arr = new int[n];
+		for(int i=0;i<n;i++)
+			arr[i] = Integer.parseInt(inputs[i]);
+		mergeSort(n, arr);
+		bw.write(sb.toString());
+		br.close();
+		bw.close();
+		System.out.println("done.");
+	}
+
+}
