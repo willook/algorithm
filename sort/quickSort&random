@@ -1,0 +1,83 @@
+package week06;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.Random;
+
+public class QuickSort {
+	static Random rand = new Random();
+	static void quickSort(int[] arr) throws Exception {
+		int n = arr.length;
+		quickSort(arr,0,n-1);
+		BufferedWriter bw = new BufferedWriter(new FileWriter("week06_06_201502096_quick.txt"));
+		StringBuilder sb = new StringBuilder();
+		sb.append(arr[0]);
+		for(int i=1;i<n;i++)
+			sb.append(',').append(arr[i]);
+		bw.write(sb.toString());
+		bw.close();
+	}
+	static void quickSort_withRandom(int[] arr) throws Exception {
+		int n = arr.length;
+		quickSort_withRandom(arr,0,n-1);
+		BufferedWriter bw = new BufferedWriter(new FileWriter("week06_06_201502096_quickRandom.txt"));
+		StringBuilder sb = new StringBuilder();
+		sb.append(arr[0]);
+		for(int i=1;i<n;i++)
+			sb.append(',').append(arr[i]);
+		bw.write(sb.toString());
+		bw.close();
+	}
+	static void quickSort(int[] arr, int l, int r) {
+		if(l>=r) return;
+		int m = partition(arr, l, r);
+		quickSort(arr, l, m-1);
+		quickSort(arr, m+1, r);
+	}
+	static void quickSort_withRandom(int[] arr, int l, int r) {
+		if(l>=r) return;
+		int m = randomPartition(arr, l, r);
+		quickSort(arr, l, m-1);
+		quickSort(arr, m+1, r);
+	}
+	static int randomPartition(int[] arr, int p, int r) {
+		int i = rand.nextInt(r-p+1)+p;
+		swap(arr, r, i);
+		return partition(arr, p, r);
+	}
+	static int partition(int[] arr, int p, int r) {
+		int x = arr[r];
+		int i = p-1;
+		for(int j=p;j<r;j++) {
+			if(arr[j]<=x) {
+				i += 1;
+				swap(arr, i, j);
+			}
+		}
+		i += 1;
+		swap(arr, i, r);
+		return i;
+	}
+	static void swap(int[] arr, int i, int j) {
+		int tmp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = tmp;
+	}
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new FileReader("data06.txt"));
+		String line = br.readLine();
+		String[] sarr = line.split(",");
+		int n = sarr.length;
+		int[] arr = new int[n];
+		for(int i=0;i<n;i++)
+			arr[i] = Integer.parseInt(sarr[i]);
+
+		quickSort(arr.clone());
+		quickSort_withRandom(arr.clone());
+		System.out.println("done.");
+		br.close();
+	}
+
+}
