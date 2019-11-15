@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class p11000 {
-	
 	static void compact(ArrayList<Integer> arr){
 		@SuppressWarnings("unchecked")
 		ArrayList<Integer> carr = (ArrayList<Integer>)arr.clone();
@@ -38,8 +37,6 @@ public class p11000 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
 		ArrayList<Integer> arr = new ArrayList<Integer>();
-		
-		
 		for(int i = 0;i<n;i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			int s = Integer.parseInt(st.nextToken());
@@ -49,7 +46,5 @@ public class p11000 {
 		}
 		compact(arr);
 		System.out.println(solve(n,arr));
-
 	}
-
 }
